@@ -70,6 +70,10 @@ class MaternalHealthPipeline:
             if row['predicted_risk'] == "high risk":
                 alerts.append(f"ALERT: Patient age {row['age']} requires immediate clinician attention.")
         return alerts
+    # === Step 5: Remote Monitoring (stub for IoT integration) ===
+    def remote_monitoring(self):
+        # Placeholder for wearable/device integration
+        return "Remote monitoring pipeline ready for IoT data ingestion."
 
     # Run Full Pipeline
     def run_pipeline(self):
@@ -113,6 +117,7 @@ if uploaded_file is not None:
         st.warning(alert)
 else:
     st.info("Please upload the maternal health dataset CSV to begin analysis.")
+
 
 
 
