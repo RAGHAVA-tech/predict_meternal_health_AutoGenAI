@@ -7,7 +7,7 @@ from langchain_openai import ChatOpenAI
 # -------------------------------
 # Setup OpenAI API Key
 # -------------------------------
-os.environ["OPENAI_API_KEY"] = "YOUR_OPENAI_KEY"
+os.environ["OPENAI_API_KEY"] = st.secrets['OPENAI_API_KEY']
 
 llm = ChatOpenAI(
     model="gpt-4o-mini",
@@ -141,4 +141,5 @@ class MaternalHealthPipeline:
             "alerts": alerts,
             "remote_monitoring_status": remote_status,
             "system_prompt": system_prompt
+
         }
