@@ -77,10 +77,20 @@ class MaternalHealthPipeline:
 
     # Run Full Pipeline
     def run_pipeline(self):
+        print("Step 1: Preprocessing...")
         self.preprocess_data()
+
+        print("Step 2: Risk Stratification...")
         self.stratify_risk()
+
+        print("Step 3: Care Planning...")
         self.generate_care_plans()
+
+        print("Step 4: Alerts...")
         alerts = self.generate_alerts()
+
+        print("Step 5: Remote Monitoring...")
+        remote_status = self.remote_monitoring()
 
         results_json = self.df[['age','systolicbp','diastolicbp','bs','predicted_risk','care_plan']].to_json(orient="records")
         tabular_summary = self.df[['age','systolicbp','diastolicbp','bs','predicted_risk']]
@@ -89,7 +99,6 @@ class MaternalHealthPipeline:
             "json_output": results_json,
             "tabular_summary": tabular_summary,
             "alerts": alerts,
-            "remote_monitoring_status": remote_status,
             "system_prompt": system_prompt
         }
 
@@ -117,6 +126,7 @@ if uploaded_file is not None:
         st.warning(alert)
 else:
     st.info("Please upload the maternal health dataset CSV to begin analysis.")
+
 
 
 
