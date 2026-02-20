@@ -143,3 +143,29 @@ class MaternalHealthPipeline:
             "system_prompt": system_prompt
 
         }
+
+# === Streamlit UI ===
+st.title("🤰 Maternal Health Risk Detection - Agentic AI Pipeline")
+
+uploaded_file = st.file_uploader("Upload Maternal Health CSV", type=["csv"])
+
+if uploaded_file is not None:
+    df = pd.read_csv(uploaded_file)
+    st.subheader("📊 Raw Data Preview")
+    st.dataframe(df.head(10))
+
+    pipeline = MaternalHealthPipeline(df)
+    results = pipeline.run_pipeline()
+
+    st.subheader("📈 Risk Stratification Summary")
+    st.dataframe(results["tabular_summary"].head(20))
+
+    st.subheader("📑 JSON Output")
+    st.json(results["json_output"])
+
+    st.subheader("🚨 Alerts")
+    for alert in results["alerts"]:
+        st.warning(alert)
+else:
+    st.info("Please upload the maternal health dataset CSV to begin analysis.")
+
